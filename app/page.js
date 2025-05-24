@@ -17,12 +17,8 @@ const getColorClasses = (colorName) => {
 };
 
 export default function Home() {
-  const { lists, addList, removeList, isInitialized } = useTodoLists();
+  const { lists, addList, removeList } = useTodoLists();
   useDocumentTitle(`Du har ${lists.length} to-do lister`);
-
-  if (!isInitialized) {
-    return null; // or a loading state
-  }
 
   return (
     <main className="p-4 max-w-3xl mx-auto">
