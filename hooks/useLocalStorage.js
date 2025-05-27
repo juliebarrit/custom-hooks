@@ -2,7 +2,6 @@
 import { useState, useEffect, useCallback } from "react";
 
 export function useLocalStorage(key, initialValue) {
-  // Lazy initial state for at undgå unødvendig localStorage læsning ved hver render
   const [value, setValue] = useState(() => {
     try {
       const item = localStorage.getItem(key);
@@ -13,7 +12,6 @@ export function useLocalStorage(key, initialValue) {
     }
   });
 
-  // Memoizer storage opdateringen
   const updateStorage = useCallback((newValue) => {
     try {
       localStorage.setItem(key, JSON.stringify(newValue));
@@ -22,10 +20,10 @@ export function useLocalStorage(key, initialValue) {
     }
   }, [key]);
 
-  // Opdater storage kun når value ændres
   useEffect(() => {
     updateStorage(value);
   }, [value, updateStorage]);
 
   return [value, setValue];
 }
+
